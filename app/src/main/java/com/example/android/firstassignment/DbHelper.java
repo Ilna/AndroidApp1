@@ -53,12 +53,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.insert(DB_NAME,null,values);
 
     }
-    public String getRowByUserid(String userid){
+    public String getRowByUserid(String userid,String timestamp){
 
         String table = DB_NAME;
         String[] columns = {"_ID","_LONGTITUDE","_LATITUDE"};
-        String selection = "_USERID=?";
-        String[] selectionArgs = {userid};
+        String selection = "_USERID=? AND timeStamp=?";
+        String[] selectionArgs = {userid,timestamp};
         String groupBy = null;
         String having = null;
         String orderBy = null;
@@ -70,7 +70,7 @@ public class DbHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
            String id = cursor.getString(0);
            String lon = cursor.getString(1);
-           String lat = cursor.getString(1);
+           String lat = cursor.getString(2);
            String result = "UserID : "+userid+"\n"+"Id : "+id+"\n"+"Longtitude : "+" "+lon+"\n"+"Latitude:"+ lat;
            return result;
             }

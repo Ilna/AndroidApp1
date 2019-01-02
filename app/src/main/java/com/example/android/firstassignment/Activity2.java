@@ -27,13 +27,18 @@ public class Activity2 extends AppCompatActivity {
             public void onClick(View v) {
                 EditText editText =findViewById(R.id.editText);
                 String userid = editText.getText().toString();
+
+                EditText editText1 = findViewById(R.id.editText2);
+                String timestamp = editText1.getText().toString();
+
                 Log.d("INPUT","INPUT "+userid);
-                String result = dbHelper.getRowByUserid(userid);
+                Log.d("INPUT2","INPUT2 "+timestamp);
+
+                String result = dbHelper.getRowByUserid(userid,timestamp);
                 Log.d("RESULT","RESULT    "+result);
                 if(result != null){
                    TextView textView = findViewById(R.id.textview);
                    textView.setText(result.toString());
-                    Toast.makeText(Activity2.this,result.toString(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

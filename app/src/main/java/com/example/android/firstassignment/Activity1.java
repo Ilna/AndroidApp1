@@ -30,7 +30,7 @@ public class Activity1 extends AppCompatActivity {
         String format = s.format(new Date());
         Log.d("DATEEEEEEEEEE", "DATEEEEEEE: " + format);
 
-        DataTable dataTable = new DataTable("it214166",134.33,172.33,format);
+        DataTable dataTable = new DataTable("it214666",234.33,232.33,format);
         dbHelper.insert(dataTable);
 
 
