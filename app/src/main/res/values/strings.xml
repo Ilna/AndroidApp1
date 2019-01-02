@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">FirstAssignment</string>
-    <string name="Activity1">First Activity!</string>
-    <string name="Activity2">Second Activity!</string>
-    <string name="Activity3">Third Activity Surprise!</string>
+    <string name="Activity1">First Activity-Insert to the DB</string>
+    <string name="Activity2">Second Activity-Create a Query</string>
+    <string name="Activity3">Third Activity-Query Results</string>
     <string name="button1">Go to the 2 Activity</string>
     <string name="button11">Insert Values to the DB</string>
     <string name="button2">Go to the 3 Activity to see the Results</string>

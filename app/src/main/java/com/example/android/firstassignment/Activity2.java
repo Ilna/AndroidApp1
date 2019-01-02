@@ -35,11 +35,13 @@ public class Activity2 extends AppCompatActivity {
                 Log.d("INPUT2","INPUT2 "+timestamp);
 
                 String result = dbHelper.getRowByUserid(userid,timestamp);
-                Log.d("RESULT","RESULT    "+result);
-                if(result != null){
-                   TextView textView = findViewById(R.id.textview);
-                   textView.setText(result.toString());
-                }
+
+                Intent intent = new Intent();
+                intent.setClassName("com.example.android.firstassignment","com.example.android.firstassignment.Activity3");
+                intent.putExtra("Result",result);
+                startActivity(intent);
+
+
             }
         });
 

@@ -71,7 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
            String id = cursor.getString(0);
            String lon = cursor.getString(1);
            String lat = cursor.getString(2);
-           String result = "UserID : "+userid+"\n"+"Id : "+id+"\n"+"Longtitude : "+" "+lon+"\n"+"Latitude:"+ lat;
+           String result = "UserID : "+userid+"\n"+"Id : "+id+"\n"+"Longtitude : "+" "+lon+"\n"+"Latitude:"+ lat+"\n"+"Timestamp : "+timestamp;
            return result;
             }
             return null;
