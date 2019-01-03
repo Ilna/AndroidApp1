@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME= "DATATABLE";
@@ -55,12 +60,13 @@ public class DbHelper extends SQLiteOpenHelper {
     }
     public String getRowByUserid(String userid,String timestamp){
 
+        //Select id longtitude and latitude from db
         String table = DB_NAME;
         String[] columns = {"_ID","_LONGTITUDE","_LATITUDE"};
         String selection = "_USERID=? AND timeStamp=?";
         String[] selectionArgs = {userid,timestamp};
         String groupBy = null;
-        String having = null;
+        String having =  null;
         String orderBy = null;
         String limit = "10";
 
@@ -76,6 +82,46 @@ public class DbHelper extends SQLiteOpenHelper {
             }
             return null;
         }
+
+    public List getAllLabels(){
+
+        List<String> list = new ArrayList<String>();
+
+        // Select Timestamp Query
+
+        String table = DB_NAME;
+        String[] columns = {"timeStamp"};
+        String selection = null;
+        //String selection = "_USERID=?";
+        String[] selectionArgs = null;
+        //String[] selectionArgs = {userid};
+        String groupBy = null;
+        String having =  null;
+        String orderBy = null;
+
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+        // looping through all rows and adding to list
+        List itemtimestamps = new ArrayList<>();
+
+        if(cursor.moveToFirst()) {
+
+            do {
+                String itemtimestamp = cursor.getString(0);
+                itemtimestamps.add(itemtimestamp);
+
+            } while (cursor.moveToNext());
+
+        }
+        // closing connection
+        //cursor.close();
+
+        // returning lables
+        return itemtimestamps;
+    }
+
+
 
 
 }

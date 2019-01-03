@@ -1,8 +1,7 @@
 package com.example.android.firstassignment;
 
-import android.content.ContentValues;
+
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -12,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -57,9 +57,20 @@ public class Activity1 extends AppCompatActivity {
                 String latitude_s = editText2.getText().toString();
                 Double latitude = Double.parseDouble(latitude_s);
 
-                DataTable dataTable = new DataTable(userid,longtitude,latitude,format);
-                dbHelper.insert(dataTable);
-            }
+
+                    DataTable dataTable = new DataTable(userid, longtitude, latitude, format);
+
+                    long test = dbHelper.insert(dataTable);
+                    if (test != 0) {//den to exw teleiwsei auto
+                        Toast.makeText(Activity1.this, "Insert Completed!", Toast.LENGTH_SHORT).show();
+
+                    }
+                    Toast.makeText(Activity1.this, "Insert Incomplete!", Toast.LENGTH_SHORT).show();
+                }
+
+
         });
+
+
     }
 }
