@@ -15,9 +15,14 @@ public class Activity3 extends AppCompatActivity {
         setContentView(R.layout.activity_3);
 
         Intent intent = getIntent();
+
+        //Get the result variable from 2Activity
         String result = intent.getStringExtra("Result");
         if(result != null){
+
             TextView textView = findViewById(R.id.textview);
+
+            //Display the result on the textView
             textView.setText(result);
         }
     }

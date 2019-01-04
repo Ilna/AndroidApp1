@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,64 +20,77 @@ public class Activity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
 
+        //new DbHelper Object
         final DbHelper dbHelper = new DbHelper(Activity2.this);//new DbHelper Object
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        //Find Timestamps button
+        findViewById(R.id.find).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        List columnoftimestamps = dbHelper.getAllLabels();
-        Log.d("TIMESTAMPS","TIMESTAMPS "+columnoftimestamps);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(Activity2.this,android.R.layout.simple_spinner_item, columnoftimestamps);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
+                //Get the userid input from the user and convert it to string
+                EditText editText = findViewById(R.id.editText);
+                String userid = editText.getText().toString();
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                //put inside the spinner the timestamplist
+                //(https://inducesmile.com/android/populating-android-spinner-from-sqlite-database/)
+                Spinner spinner = (Spinner) findViewById(R.id.spinner);
+                List columnoftimestamps = dbHelper.getAllLabels(userid);
 
-                final Object item = parent.getItemAtPosition(pos);
-                final String timestamp = item.toString();
-                Log.d("SHMANTIKOOOOOO","SHMANTIKO"+item);
+                Log.d("TIMESTAMPS", "TIMESTAMPS " + columnoftimestamps);
 
-                findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EditText editText =findViewById(R.id.editText);
-                        String userid = editText.getText().toString();
+                //Creating adapter for spinner
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(Activity2.this, android.R.layout.simple_spinner_item, columnoftimestamps);
 
-                        //EditText editText1 = findViewById(R.id.editText2);
-                        //String timestamp = editText1.getText().toString();
+                //Drop down layout list view
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        Log.d("INPUT","INPUT "+userid);
-                        Log.d("INPUT2","INPUT2 "+timestamp);
+                //attaching data adapter to spinner
+                spinner.setAdapter(spinnerAdapter);
 
-                        String result = dbHelper.getRowByUserid(userid,timestamp);
+                //Get the spinner current value (https://stackoverflow.com/questions/1947933/how-to-get-spinner-value)
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                        Intent intent = new Intent();
-                        intent.setClassName("com.example.android.firstassignment","com.example.android.firstassignment.Activity3");
-                        intent.putExtra("Result",result);
-                        startActivity(intent);
+                        //item has the current value
+                        final Object item = parent.getItemAtPosition(pos);
+                        final String timestamp = item.toString();
+                        Log.d("SHMANTIKOOOOOO", "SHMANTIKO" + item);
+
+                        //Make the query and go to the 3Activity for the results button
+                        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                //Get the userid input from the user and convert it to string
+                                EditText editText = findViewById(R.id.editText);
+                                String userid = editText.getText().toString();
+
+                                Log.d("INPUT", "INPUT " + userid);
+                                Log.d("INPUT2", "INPUT2 " + timestamp);
+
+                                //get the query result from the DB and put it inside "result" variable
+                                String result = dbHelper.getRowByUseridTimestamp(userid, timestamp);
+
+                                Intent intent = new Intent();
+                                intent.setClassName("com.example.android.firstassignment", "com.example.android.firstassignment.Activity3");
+
+                                //sent result to the 3Activity
+                                intent.putExtra("Result", result);
+                                startActivity(intent);
 
 
+                            }
+                        });
+
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        Toast.makeText(Activity2.this, "Nothing is selected from the DB", Toast.LENGTH_SHORT).show();
                     }
                 });
 
             }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
         });
-
-        //String text = spinner.getSelectedItem().toString();
-
-
-
-
-//        Button button = findViewById(R.id.button2);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setClassName("com.example.android.firstassignment","com.example.android.firstassignment.Activity3");
-//                startActivity(intent);
-//            }
-//        });
     }
 }
