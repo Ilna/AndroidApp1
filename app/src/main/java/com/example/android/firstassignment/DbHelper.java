@@ -33,10 +33,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + DB_NAME + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COLUMN_USERID + " TEXT," +
-                COLUMN_LONGTITUDE + " REAL," +
-                COLUMN_LATITUDE + " REAL," +
-                COLUMN_TIME_STAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+                COLUMN_USERID + " TEXT NOT NULL," +
+                COLUMN_LONGTITUDE + " REAL NOT NULL," +
+                COLUMN_LATITUDE + " REAL NOT NULL," +
+                COLUMN_TIME_STAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL)");
     }
 
     @Override
@@ -126,5 +126,48 @@ public class DbHelper extends SQLiteOpenHelper {
         return itemtimestamps;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List examQuery() {
+
+        String table = DB_NAME;
+        String[] columns = {"_ID", "_LONGTITUDE", "_LATITUDE","_USERID","timestamp"};
+        //String[] columns = null;
+        String selection = null;
+        String[] selectionArgs = null;
+        String groupBy = null;
+        String having = null;
+        String orderBy = null;
+
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+
+        List examList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            DataTable d;
+            do {
+                String id =  cursor.getString(0);
+                String userid =  cursor.getString(1);
+                Double longtitude =  cursor.getDouble(2);
+                Double latitude =  cursor.getDouble(3);
+                String timestamp =  cursor.getString(4);
+                d = new DataTable(userid,longtitude,latitude,timestamp);
+
+
+                examList.add(d.getUserid());
+
+            } while (cursor.moveToNext());
+
+        }
+        return examList;
+    }
+    public Cursor search(){
+//        String selection = COLUMN_USERID+" = ? AND " +COLUMN_TIME_STAMP + " = ?";
+//        String[] selectionArgs = {userid,};
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        return sqLiteDatabase.query(DB_NAME,null,null,null,null,null,null);
+
+    }
 
 }
