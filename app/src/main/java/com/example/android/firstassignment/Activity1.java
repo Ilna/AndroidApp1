@@ -94,7 +94,7 @@ public class Activity1 extends AppCompatActivity {
                 //intent.putExtra("result",listString);
                 //intent.setAction("com.example.android.firstassignment.exam");
                 intent.setClassName("com.example.android.firstassignment","com.example.android.firstassignment.ExamActivity");
-                startActivityForResult(intent,7);
+                startActivity(intent);
             }
         });
 

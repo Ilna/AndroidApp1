@@ -8,5 +8,6 @@
     <string name="button2">Go to the 3 Activity to see the Results</string>
     <string name="editTexts"> </string>
     <string name="userid">UserID :</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
