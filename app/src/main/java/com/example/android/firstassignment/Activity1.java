@@ -1,8 +1,5 @@
 package com.example.android.firstassignment;
 
-
-
-
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -14,9 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -88,8 +82,7 @@ public class Activity1 extends AppCompatActivity {
                 Intent intent = new Intent();
                 DbHelper dbHelper = new DbHelper(Activity1.this);
                 List list =dbHelper.examQuery();
-                String listString = list.toString();
-                Toast.makeText(Activity1.this, "Insert Incomplete!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity1.this, "This is a list of every object of my DB", Toast.LENGTH_SHORT).show();
                 //Log.d("LIST","LIST"+list);
                 //intent.putExtra("result",listString);
                 //intent.setAction("com.example.android.firstassignment.exam");

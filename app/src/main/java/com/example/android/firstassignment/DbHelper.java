@@ -129,6 +129,7 @@ public class DbHelper extends SQLiteOpenHelper {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List examQuery() {
 
+        //not working
         String table = DB_NAME;
         String[] columns = {"_ID", "_LONGTITUDE", "_LATITUDE","_USERID","timestamp"};
         //String[] columns = null;
@@ -161,9 +162,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
         return examList;
     }
-    public Cursor search(){
-//        String selection = COLUMN_USERID+" = ? AND " +COLUMN_TIME_STAMP + " = ?";
-//        String[] selectionArgs = {userid,};
+    public Cursor examquery(){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
         return sqLiteDatabase.query(DB_NAME,null,null,null,null,null,null);

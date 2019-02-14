@@ -18,20 +18,10 @@ public class ExamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
         DbHelper dbHelper = new DbHelper(ExamActivity.this);
-        //Intent intent = getIntent();
-        //String result = intent.getStringExtra("result");
-
-//        if(result != null){
-//
-//            TextView textView = findViewById(R.id.textView4);
-//
-//            //Display the result on the textView
-//            textView.setText(result);
-//        }
         ListView listView = findViewById(R.id.listview);
         ArrayList<String> resultList = new ArrayList<>();
         Intent intent = getIntent();
-        Cursor cursor = dbHelper.search();
+        Cursor cursor = dbHelper.examquery();
         while (cursor.moveToNext()){
             String LISTA = cursor.getString(0)+"\n"+cursor.getString(1)+"\n"+cursor.getString(2)+"\n"+cursor.getString(3)+"\n"+cursor.getString(4)+"\n";
             resultList.add(LISTA);
