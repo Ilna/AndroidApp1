@@ -34,7 +34,7 @@ public class MyContentProvider extends ContentProvider {
         Uri _uri = null;
         long rowID = sqLiteDatabase.insert(dbHelper.DB_NAME, null, values);
         if (rowID > 0) {
-            _uri = ContentUris.withAppendedId(Uri.parse("content://com.example.android.firstassignment.MyContentProvider/datatable"),rowID);
+            _uri = ContentUris.withAppendedId(Uri.parse("content://com.example.android.firstassignment/datatable"),rowID);
             getContext().getContentResolver().notifyChange(_uri, null);
             return _uri;
         }
